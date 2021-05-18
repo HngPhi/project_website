@@ -44,25 +44,25 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="single-banner">
-                    <img src="{{ asset('img/banner-1.jpg') }}" alt="">
+                    <img src="{{ asset('img/men/banner-1.jpg') }}" alt="">
                     <div class="inner-text">
-                        <h4>Men’s</h4>
+                        <a href="{{ url('user/collection/men') }}"><h4>Men’s</h4></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-banner">
-                    <img src="{{ asset('img/banner-2.jpg') }}" alt="">
+                    <img src="{{ asset('img/women/banner-2.jpg') }}" alt="">
                     <div class="inner-text">
-                        <h4>Women’s</h4>
+                        <a href="{{ url('user/collection/women') }}"><h4>Women’s</h4></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="single-banner">
-                    <img src="{{ asset('img/banner-3.jpg') }}" alt="">
+                    <img src="{{ asset('img/child/banner-3.jpg') }}" alt="">
                     <div class="inner-text">
-                        <h4>Kid’s</h4>
+                        <a href="{{ url('user/collection/child') }}"><h4>Kid’s</h4></a>
                     </div>
                 </div>
             </div>
@@ -76,9 +76,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
-                <div class="product-large set-bg" data-setbg="{{ asset('img/products/women-large.jpg') }}">
-                    <h2>Women’s</h2>
-                    <a href="#">Discover More</a>
+                <div class="product-large set-bg" data-setbg="{{ asset('img/women/feature-women.jpg') }}">
+                    <a href="{{ url('user/women') }}"><h3>Women’s</h3></a>
                 </div>
             </div>
             <div class="col-lg-8 offset-lg-1">
@@ -91,96 +90,29 @@
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/women-1.jpg') }}" alt="">
-                            <div class="sale">Sale</div>
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
+                    @foreach ($feature_women as $v_feature_women)
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <a href=""><img src="{{ $v_feature_women->img_feature_women }}" alt=""></a>
+                                <div class="sale">New</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/women-2.jpg') }}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
+                            <div class="pi-text">
+                                <div class="catagory-name">Coat</div>
+                                <a href="#">
+                                    <h5>{{ $v_feature_women->title_feature_women }}</h5>
+                                </a>
+                                <div class="product-price">
+                                    ${{ number_format($v_feature_women->price_feature_women, '0', '', '.') }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/women-3.jpg') }}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/women-4.jpg') }}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach                                                                                    
                 </div>
             </div>
         </div>
@@ -239,102 +171,34 @@
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/man-1.jpg') }}" alt="">
-                            <div class="sale">Sale</div>
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
+                    @foreach ($feature_men as $v_feature_men)
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <a href=""><img src="{{ $v_feature_men->img_feature_men }}" alt=""></a>
+                                <div class="sale">New</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/man-2.jpg') }}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
+                            <div class="pi-text">
+                                <div class="catagory-name">Coat</div>
+                                <a href="#">
+                                    <h5>{{ $v_feature_men->title_feature_men }}</h5>
+                                </a>
+                                <div class="product-price">
+                                    ${{ number_format($v_feature_men->price_feature_men, '0', '', '.') }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/man-3.jpg') }}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ asset('img/products/man-4.jpg') }}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="col-lg-3 offset-lg-1">
-                <div class="product-large set-bg m-large" data-setbg="{{ asset('img/products/man-large.jpg') }}">
-                    <h2>Men’s</h2>
-                    <a href="#">Discover More</a>
+                <div class="product-large set-bg m-large" data-setbg="{{ asset('img/men/feature-men.jpg') }}">
+                    <a href="{{ url('user/men') }}"><h3>Men’s</h3></a>
                 </div>
             </div>
         </div>
@@ -450,7 +314,7 @@
                                 5
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="{{ url('user/blogdetails') }}">
                             <h4>How To Brighten Your Wardrobe With A Dash Of Lime</h4>
                         </a>
                         <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
@@ -498,39 +362,4 @@
     </div>
     </section>
     <!-- Latest Blog Section End -->
-
-    <!-- Partner Logo Section Begin -->
-    <div class="partner-logo">
-    <div class="container">
-        <div class="logo-carousel owl-carousel">
-            <div class="logo-item">
-                <div class="tablecell-inner">
-                    <img src="{{ asset('img/logo-carousel/logo-1.png') }}" alt="">
-                </div>
-            </div>
-            <div class="logo-item">
-                <div class="tablecell-inner">
-                    <img src="{{ asset('img/logo-carousel/logo-2.png') }}" alt="">
-                </div>
-            </div>
-            <div class="logo-item">
-                <div class="tablecell-inner">
-                    <img src="{{ asset('img/logo-carousel/logo-3.png') }}" alt="">
-                </div>
-            </div>
-            <div class="logo-item">
-                <div class="tablecell-inner">
-                    <img src="{{ asset('img/logo-carousel/logo-4.png') }}" alt="">
-                </div>
-            </div>
-            <div class="logo-item">
-                <div class="tablecell-inner">
-                    <img src="{{ asset('img/logo-carousel/logo-5.png') }}" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    <!-- Partner Logo Section End -->
-
 @endsection    
