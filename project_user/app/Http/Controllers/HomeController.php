@@ -23,8 +23,4 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
-    function show(){
-        return view('user/landingpage');
-    }
 }

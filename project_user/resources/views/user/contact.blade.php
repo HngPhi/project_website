@@ -114,17 +114,17 @@
                 </div>
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-3.png" alt="">
+                        <img src="{{ asset('img/logo-carousel/logo-3.png') }}" alt="">
                     </div>
                 </div>
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-4.png" alt="">
+                        <img src="{{ asset('img/logo-carousel/logo-4.png') }}" alt="">
                     </div>
                 </div>
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="img/logo-carousel/logo-5.png" alt="">
+                        <img src="{{ asset('img/logo-carousel/logo-5.png') }}" alt="">
                     </div>
                 </div>
             </div>
