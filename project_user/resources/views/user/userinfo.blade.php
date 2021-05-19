@@ -122,27 +122,27 @@
                 </div>
                 <div class="form-userinfo">
                     <label for="password">Birthday</label>
-                        <select name="day" id="">
-                            @for ($i = 0; $i <= 31; $i++)
-                                <option value="{{ $i }}" {{ isset($user->day) && $user->day == $i ? "selected" : ""}}>
-                                    {{ $i }}
-                                </option>
-                            @endfor
-                        </select>
-                        <select name="month" id="">
-                            @for ($i = 0; $i <= 12; $i++)
-                                <option value="{{ $i }}" {{ isset($user->month) && $user->month == $i ? "selected" : ""}}>
-                                    {{ $i }}
-                                </option>
-                            @endfor
-                        </select>
-                        <select name="year" id="">
-                            @for ($i = 1989; $i <= 2021; $i++)
-                                <option value="{{ $i }}" {{ isset($user->year) && $user->year == $i ? "selected" : ""}}>
-                                    {{ $i }}
-                                </option>
-                            @endfor
-                        </select>
+                    <select name="day" id="">
+                        @for ($i = 0; $i <= 31; $i++)
+                            <option value="{{ $i }}" {{ isset($user->day) && $user->day == $i ? "selected" : ""}}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                    <select name="month" id="">
+                        @for ($i = 0; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ isset($user->month) && $user->month == $i ? "selected" : ""}}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                    <select name="year" id="">
+                        @for ($i = 1989; $i <= 2021; $i++)
+                            <option value="{{ $i }}" {{ isset($user->year) && $user->year == $i ? "selected" : ""}}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
                 </div>
                 <div class="form-userinfo">
                     <label for=""></label>

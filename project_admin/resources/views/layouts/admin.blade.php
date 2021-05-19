@@ -27,13 +27,25 @@
                     </div>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        PHAN CƯƠNG
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Tài khoản</a>
-                        <a class="dropdown-item" href="#">Thoát</a>
-                    </div>
+                    @if (Auth::check())
+                        <button type="button" id="btnDropDownUsername" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" style="line-height: 20px">
+                            <a class="dropdown-item" href="{{ url("user/info") }}">Tài khoản</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Đăng xuất') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    @else
+                        <a class="login" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
+                    @endif
                 </div>
             </div>
         </nav>
@@ -90,7 +102,7 @@
                             </div>
                             User
                         </a>
-                        <i class="arrow fas fa-angle-down"></i>
+                        <i class="arrow fas fa-angle-right"></i>
                         <ul class="sub-menu">
                             <li><a href="{{ url("admin/user/create") }}">Add</a></li>
                             <li><a href="{{ url("admin/user") }}">List</a></li>

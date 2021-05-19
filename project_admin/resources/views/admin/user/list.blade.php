@@ -1,81 +1,73 @@
 @extends('layouts.admin')
 @section('content')
+    @if (session("alert"))
+        <div class="alert alert-success form-control alertStatus">
+            <i class="fas fa-check-circle"></i>{{ session("alert") }}
+        </div>
+    @endif
     <div id="content" class="container-fluid">
         <div class="card">
             <div class="card-header font-weight-bold">
-                Danh sách người dùng
+                USER LIST
+            </div>
+            <div class="addBlog">
+                <form action="{{ url("admin/user/create") }}" method="GET">
+                   <input type="submit" name="btnAdd" value="ADD USER" class="btn btn-primary">
+                </form>
             </div>
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Họ tên</th>
+                        <tr class="tr_user">
+                            <th scope="col">Index</th>
                             <th scope="col">Username</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Quyền</th>
-                            <th scope="col">Ngày tạo</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Birthday</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Created_at</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Phan Văn Cương</td>
-                            <td>phancuong</td>
-                            <td>phancuong.qt@gmail.com</td>
-                            <td>Admintrator</td>
-                            <td>26:06:2020 14:00</td>
-                            <td>
-                                <a href="#" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Phan Trần Minh Anh</td>
-                            <td>minhanh</td>
-                            <td>minhanh@gmail.com</td>
-                            <td>Editor</td>
-                            <td>26:06:2020 14:00</td>
-                            <td>
-                                <a href="#" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nguyễn Hồng Nhung</td>
-                            <td>hongnhung</td>
-                            <td>hongnhung@gmail.com</td>
-                            <td>Editor</td>
-                            <td>26:06:2020 14:00</td>
-                            <td>
-                                <a href="#" class="btn btn-success btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm rounded-0 text-white" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        @php $count=0 @endphp
+                        @foreach ($user as $item)
+                            @php ++$count @endphp
+                            <tr class="tr_user">
+                                <th scope="row">{{ $count }}</th>
+                                <td>{{ $item->name }}</td>
+                                <td class="td_img"><p class="user_img" style="background-image: url({{ asset("storage/images/user/$item->img") }}); height: 100px; width: 100px;"></p></td>
+                                <td>{{ $item->email }}</td>
+                                @if (isset($item->day) || isset($item->month) || isset($item->year))
+                                    <td>{{ $item->day."/".$item->month."/".$item->year }}</td>
+                                @else
+                                    <td>_________</td>
+                                @endif
+                                @if (isset($item->gender))
+                                    <td>{{ $item->gender }}</td>
+                                @else
+                                    <td>_________</td>
+                                @endif
+                                @foreach ($role as $item_role)
+                                    @if ($item_role->id == $item->role_id)
+                                        <td>{{ $item_role->role }}</td>
+                                    @endif
+                                @endforeach
+                                <td>{{ $item->created_at }}</td>
+                                <td style="display: flex;">
+                                    <a href="{{ route("user.edit", $item->id) }}" style="margin-right: 5px" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Edit">EDIT</a>
+                                    <form action="{{ route("user.destroy", $item->id) }}" method="POST">
+                                        @csrf
+                                        @method("delete")
+                                        <input type="submit" name="btnDeleteProd" value="DELETE" class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">Trước</span>
-                                <span class="sr-only">Sau</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <div>{{ $user->links() }}</div>
             </div>
         </div>
     </div>
