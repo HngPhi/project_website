@@ -186,8 +186,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $blog = Product::find($id);
-        $blog->delete();
-        return back()->with('alert', "DELETE BLOG id = $id SUCCESS");
+        $product = Product::find($id);
+        $product->delete();
+        return back()->with('alert', "DELETE PRODUCT id = $id SUCCESS");
     }
 }

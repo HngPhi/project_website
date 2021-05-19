@@ -13,27 +13,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+    
+    Route::prefix("admin/")->namespace("Admin")->group(function(){
+        Route::get('', "DashBoardController@index");
+    
+        Route::resources([
+            'blog' => "BlogController",
+            'blog_category'=> "BlogCategoryController",
+            'product' => "ProductController",
+            'product_category' => "ProductCategoryController",
+            'product_collection' => "ProductCollectionController",
+            'user' => "UserController",
+        ]);
+    });
+});
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
-});
-
-Route::prefix("admin/")->namespace("Admin")->group(function(){
-    Route::get('', "DashBoardController@index");
-
-    Route::resources([
-        'blog' => "BlogController",
-        'blog_category'=> "BlogCategoryController",
-        'product' => "ProductController",
-        'product_category' => "ProductCategoryController",
-        'product_collection' => "ProductCollectionController",
-        'user' => "UserController",
-    ]);
 });

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'role_id', 'name', 'email', 'password', 'phoneNumber', 'img', 'gender', 'day', 'month', 'year',
     ];
 
     /**
@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function checkIsset($user, $request_user){
+        if(isset($request_user)) return $user = $request_user;
+        else return $user = $user;
+    }
 }
