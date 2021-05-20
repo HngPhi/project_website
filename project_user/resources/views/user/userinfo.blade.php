@@ -35,23 +35,23 @@
                             <a href="javascript:" id="a-email">Thay đổi</a>
                         </div>
                         <div class="d-none show-email">
-                            <input type="email" id="email" name="email" value="{{ isset($user->email) ? $user->email : "" }}" data-id="{{ empty($arrErr) ? 0 : 1 }}" size="35" placeholdedr="E.g: vudanhhungphi@gmail.com" class="@error('email') is-invalid @enderror" id="email">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <span class="alertError">
-                                @if(!empty(Session::get("error")))
-                                    @foreach (Session::get("error") as $key => $item)
-                                        @if ($key == "email")
-                                            <strong>{{ $item }}</strong>
-                                        @endif
-                                    @endforeach
-                                @else {{ "" }}
-                                @endif
-                            </span>
+                            <input type="email" id="email" name="email" value="{{ isset($user->email) ? $user->email : "" }}" data-id="{{ empty(Session::get("error")) ? 0 : 1 }}" size="35" placeholdedr="E.g: vudanhhungphi@gmail.com" class="@error('email') is-invalid @enderror" id="email">
                         </div>
+                        @error('email')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <span class="alertError">
+                            @if(!empty(Session::get("error")))
+                                @foreach (Session::get("error") as $key => $item)
+                                    @if ($key == "email")
+                                        <strong>{{ $item }}</strong>
+                                    @endif
+                                @endforeach
+                            @else {{ "" }}
+                            @endif
+                        </span>
                     </div>
                 </div>
                 <div class="form-userinfo hiddenInfo">
@@ -63,12 +63,13 @@
                         </div>
                         <div class="d-none show-phoneNumber">
                             <input type="text" id="phoneNumber" name="phoneNumber" value="{{ isset($user->phoneNumber) ? $user->phoneNumber : "" }}" placeholder="E.g: 0398391694" size="35" class="@error('phoneNumber') is-invalid @enderror">
-                            @error('phoneNumber')
-                            <span class="invalid-feedback" role="alert">
+                            
+                        </div>
+                        @error('phoneNumber')
+                            <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        </div>
                     </div>
                 </div>
                 <div class="form-userinfo">
@@ -91,7 +92,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    <span class="alertError">
+                    <span class="alertError m-l-155">
                         @if(!empty(Session::get("error")))
                             @foreach (Session::get("error") as $key => $item)
                                 @if ($key == "password")
@@ -150,10 +151,9 @@
                 </div>
                 <div class="form-avatar">
                     <div class="upload-avatar">
-                        <div class="upload-circle-avatar" style="background-image: url({{ asset("/storage/images/users/".$user->img) }})">
-                        </div>
+                        <div class="upload-circle-avatar" style="background-image: url({{ asset("/storage/images/users/".$user->img) }})"></div>
                         <div>
-                            <input type="file" class=" d-block" name="image" value="{{ asset("/storage/images/users/".$user->img) }}" class="@error('image') is-invalid @enderror">
+                            <input type="file" class="d-block" name="image" value="{{ asset("/storage/images/users/".$user->img) }}" class="@error('image') is-invalid @enderror">
                             @error('image')
                                 <span class="invalid-feedback alertErrorImage" role="alert">
                                     <strong>{{ $message }}</strong>

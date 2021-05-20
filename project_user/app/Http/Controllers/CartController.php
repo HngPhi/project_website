@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoryclothing;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -15,29 +16,79 @@ class CartController extends Controller
 
     function add($id){
         $product = Product::find($id);
-        $addCart = Cart::add([
-            'id' => $product->id, 
-            'name' => $product->name,
-            'price' => $product->price,
-            'qty' => 1,
-            'options' => [
-                'categoryclothing_title' => $product->categoryclothing_title,
-                'discount' => $product->discount, 
-                'img' => $product->img,
-            ],
-        ]);
-        $countCart = Cart::count();
-        $alertAddCart = "<div class='CartNotification__Wrapper-sc-1egoil-0 fhQCQR'>
-                    <a class='btn-close'><i class='fas fa-times'></i></a>
-                    <p class='status'>
-                        <svg stroke='currentColor' fill='currentColor' stroke-width='0' viewBox='0 0 512 512' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'><path d='M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z'></path></svg>Thêm vào giỏ hàng thành công!
-                    </p>
-                    <a class='btn-view-cart' href='http://localhost/project_websitebanhang/project_user/user/cart'>Xem giỏ hàng và thanh toán</a>
-                </div>";
+        $prodCateAll = Categoryclothing::all();
+        $cart = Cart::content();
+        $qtyTotal = $product->qty;
+        $qtyUser = $_GET['qty'];
+        $prodCate = "";
+        $showQtyErr = "";
+        foreach($prodCateAll as $item){
+            if($item->id == $product->categoryclothing_id){
+                $prodCate = $item->title_category_clothing;
+            }
+        }
+        if($qtyUser < $qtyTotal || $qtyUser == $qtyTotal){
+            if(empty($cart)){
+                Cart::add([
+                    'id' => $product->id, 
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'qty' => $qtyUser,
+                    'options' => [
+                        'categoryclothing_id' => $prodCate,
+                        'discount' => $product->discount, 
+                        'img' => $product->img,
+                    ],
+                ]);
+            }
+            else{
+                foreach($cart as $item) {
+                    if($product->id == $item->id){
+                        if($qtyUser + $item->qty > $qtyTotal){
+                            $showQtyErr = "Remaining quantity to be purchased: ".abs($qtyTotal-$item->qty);
+                        }
+                        else{
+                            Cart::add([
+                                'id' => $product->id, 
+                                'name' => $product->name,
+                                'price' => $product->price,
+                                'qty' => $qtyUser,
+                                'options' => [
+                                    'categoryclothing_id' => $prodCate,
+                                    'discount' => $product->discount, 
+                                    'img' => $product->img,
+                                ],
+                            ]);
+                            $showQtyErr = "";
+                        }
+                    }
+                    else{
+                        Cart::add([
+                            'id' => $product->id, 
+                            'name' => $product->name,
+                            'price' => $product->price,
+                            'qty' => $qtyUser,
+                            'options' => [
+                                'categoryclothing_id' => $prodCate,
+                                'discount' => $product->discount, 
+                                'img' => $product->img,
+                            ],
+                        ]);
+                        $showQtyErr = "";
+                    }
+                }
+            }
+            $countCart = Cart::count();
+        }
+        else{
+            $showQtyErr = "The maximum allowed quantity is: ".$qtyTotal;
+            $countCart = Cart::count();
+        }
         $data = array([
-            'addCart' => $addCart,
+            'addCart' => $qtyUser,
             'countCart' => $countCart,
-            'alertAddCart' => $alertAddCart,
+            'prodCate' => $prodCate,
+            'showQtyErr' => $showQtyErr,
         ]);
         echo json_encode($data);
     }
@@ -70,6 +121,7 @@ class CartController extends Controller
             'total' => $total,
             'tax' => $tax,
             'subTotal' => $subTotal,
+            'total' => $total,
         ]);
         echo json_encode($data);
     }

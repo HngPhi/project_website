@@ -15,12 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('home');
     });
     Route::get('/home', 'HomeController@index')->name('home');
-    
     
     Route::prefix("admin/")->namespace("Admin")->group(function(){
         Route::get('', "DashBoardController@index");

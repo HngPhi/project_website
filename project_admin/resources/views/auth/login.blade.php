@@ -1,7 +1,12 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
+    @if (session("alert"))
+        <div class="alert alert-danger form-control alertLoginAdmin" style="margin-bottom: 20px; padding-bottom: 35px; margin-left: 190px; width: 730px">
+            <i class="fas fa-times-circle" style="margin-right: 10px"></i>{{ session("alert") }}
+        </div>
+    @else {{ "" }}
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

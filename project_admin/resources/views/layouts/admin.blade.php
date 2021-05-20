@@ -32,7 +32,7 @@
                             {{ Auth::user()->name }}
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" style="line-height: 20px">
-                            <a class="dropdown-item" href="{{ url("user/info") }}">Tài khoản</a>
+                            {{-- <a class="dropdown-item" href="{{ url("user/info") }}">Tài khoản</a> --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
