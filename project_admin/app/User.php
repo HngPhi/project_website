@@ -41,4 +41,8 @@ class User extends Authenticatable
         if(isset($request_user)) return $user = $request_user;
         else return $user = $user;
     }
+
+    public function role(){
+        return $this->belongsTo("App\Models\Role");
+    }
 }

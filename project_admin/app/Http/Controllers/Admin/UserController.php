@@ -134,7 +134,6 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $userAll = User::all();
-        $role = Role::all();
         if(isset($_POST['btnUpdateUser'])){
             $count = 0;
             $error = array();

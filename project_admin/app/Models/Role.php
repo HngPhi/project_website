@@ -9,4 +9,8 @@ class Role extends Model
     //
     protected $table = "role";
     protected $fillable = ['id', 'role'];
+
+    public function user(){
+        return $this->hasMany("App\User");
+    }
 }
