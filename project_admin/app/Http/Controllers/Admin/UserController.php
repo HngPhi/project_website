@@ -138,7 +138,7 @@ class UserController extends Controller
             $count = 0;
             $error = array();
             $request->validate([
-                'name' => 'required|regex:/^[a-zA-Z0-9-._ ]+$/|min:3|max:40',
+                'name' => 'required|regex:/^[a-zA-Z0-9-._ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/|min:3|max:40',
                 'email' => 'required|email|max:50',
                 'phoneNumber' => 'bail|numeric|digits:10',
                 'image' => 'bail|image|mimes:jpg,jpeg,png,gif|max:2048',

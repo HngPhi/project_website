@@ -49,7 +49,7 @@ class UserInfoController extends Controller
 
             $request->validate(
                 [
-                    'username' => 'bail|required|min:3|regex:/^[a-zA-Z0-9-._ ]+$/',
+                    'username' => 'bail|required|min:3|regex:/^[a-zA-Z0-9-._ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
                     'email' => 'bail|required|min:15',
                 ],
                 [
