@@ -24,6 +24,7 @@
                         $(".showProdCate").text(element.prodCate);
                         $("#showQtyErr").removeClass("showQtyErr");
                         $("p#showQtyErr").text(element.showQtyErr);
+                        $(".updateCart").attr("max", element.qtyTotal);
                     }
                     else{
                         $(".number_shopping_cart").text(element.countCart);

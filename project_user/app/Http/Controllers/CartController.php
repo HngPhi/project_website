@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Categoryclothing;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -17,75 +16,48 @@ class CartController extends Controller
     function add($id){
         $product = Product::find($id);
         $prodCateAll = Categoryclothing::all();
-        $cart = Cart::content();
+        $cartCotent = Cart::content();
         $qtyTotal = $product->qty;
         $qtyUser = $_GET['qty'];
         $prodCate = "";
         $showQtyErr = "";
+        $cart = array([
+            'id' => $product->id, 
+            'name' => $product->name,
+            'price' => $product->price,
+            'qty' => $qtyUser,
+            'options' => [
+                'categoryclothing_id' => $prodCate,
+                'discount' => $product->discount, 
+                'img' => $product->img,
+            ],
+        ]);
+        $qtyCart = 0;
         foreach($prodCateAll as $item){
             if($item->id == $product->categoryclothing_id){
                 $prodCate = $item->title_category_clothing;
             }
         }
-        if($qtyUser < $qtyTotal || $qtyUser == $qtyTotal){
-            if(empty($cart)){
-                Cart::add([
-                    'id' => $product->id, 
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'qty' => $qtyUser,
-                    'options' => [
-                        'categoryclothing_id' => $prodCate,
-                        'discount' => $product->discount, 
-                        'img' => $product->img,
-                    ],
-                ]);
-            }
-            else{
-                foreach($cart as $item) {
-                    if($product->id == $item->id){
-                        if($qtyUser + $item->qty > $qtyTotal){
-                            $showQtyErr = "Remaining quantity to be purchased: ".abs($qtyTotal-$item->qty);
-                        }
-                        else{
-                            Cart::add([
-                                'id' => $product->id, 
-                                'name' => $product->name,
-                                'price' => $product->price,
-                                'qty' => $qtyUser,
-                                'options' => [
-                                    'categoryclothing_id' => $prodCate,
-                                    'discount' => $product->discount, 
-                                    'img' => $product->img,
-                                ],
-                            ]);
-                            $showQtyErr = "";
-                        }
-                    }
-                    else{
-                        Cart::add([
-                            'id' => $product->id, 
-                            'name' => $product->name,
-                            'price' => $product->price,
-                            'qty' => $qtyUser,
-                            'options' => [
-                                'categoryclothing_id' => $prodCate,
-                                'discount' => $product->discount, 
-                                'img' => $product->img,
-                            ],
-                        ]);
-                        $showQtyErr = "";
-                    }
+        if($qtyUser < $qtyTotal || $qtyUser == $qtyTotal ){
+            if(Cart::count()>0){
+                foreach($cartCotent as $item){
+                    if($item->qty > $qtyTotal) $temp=0;
+                    else $temp = $qtyTotal-$item->qty;
+                    if($item->id == $product->id) $qtyCart = $item->qty;
+                }
+                if($qtyUser + $qtyCart > $qtyTotal) {$showQtyErr = "Remaining quantity to be purchased: ".$temp;}
+                else{
+                    Cart::add($cart);
                 }
             }
-            $countCart = Cart::count();
+            else{
+                Cart::add($cart);
+            }
         }
-        else{
-            $showQtyErr = "The maximum allowed quantity is: ".$qtyTotal;
-            $countCart = Cart::count();
-        }
+        else {$showQtyErr = "The maximum allowed quantity is: ".$qtyTotal;}
+        $countCart = Cart::count();
         $data = array([
-            'addCart' => $qtyUser,
+            'addCart' => $qtyCart,
             'countCart' => $countCart,
             'prodCate' => $prodCate,
             'showQtyErr' => $showQtyErr,

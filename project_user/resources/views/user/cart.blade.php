@@ -44,7 +44,7 @@
                                             </div>
                                         </td>
                                         <td class="total-price total-price_{{ $v->id }}">${{ number_format($v->price*$v->qty, '0', '', '.') }}</td>
-                                        <td class="close-td"><a href="javascript:" onclick="return confirm('Do you want to delete this product ?')" class="deleteCart" rowId={{ $v->rowId }}><i class="ti-close btn btn-danger"></i></a></td>
+                                        <td class="close-td"><a href="javascript:" class="deleteCart" rowId={{ $v->rowId }}><i class="ti-close btn btn-danger"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
